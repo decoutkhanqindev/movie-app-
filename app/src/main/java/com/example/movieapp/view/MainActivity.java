@@ -1,5 +1,6 @@
 package com.example.movieapp.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             if (currentUser != null){
                 hideSignInAndUpBtnLayout();
                 binding.moveToHomeLauncher.setVisibility(View.VISIBLE);
+                moveToHomeLauncherActivity();
             } else {
                 showSignInAndUpBtnLayout();
                 binding.moveToHomeLauncher.setVisibility(View.GONE);
@@ -141,5 +143,16 @@ public class MainActivity extends AppCompatActivity {
 //        và quay lại fragment trước đó.Nếu không có fragment nào trong back stack
 //        (getBackStackEntryCount() bằng 0),thì phương thức super.onBackPressed() sẽ được gọi để
 //        hoàn thành hành động back mặc định(thoát khỏi ứng dụng hoặc activity hiện tại).
+    }
+
+
+    private void moveToHomeLauncherActivity() {
+        binding.moveToHomeLauncher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HomeLauncherActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

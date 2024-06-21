@@ -38,6 +38,6 @@ public class SignInFragment extends Fragment {
 
     private void hideFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().hide(this).commit();
+        fragmentManager.popBackStack();
     }
 }

@@ -2,6 +2,7 @@ package com.example.movieapp.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +15,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private SignInFragment signInFragment;
     private SignUpFragment signUpFragment;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,46 +40,60 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        binding.moveToSignInFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInFragment = new SignInFragment();
-                showFragment(signInFragment);
-            }
+        binding.moveToSignInFragment.setOnClickListener(v -> {
+            signInFragment = new SignInFragment();
+            showFragment(signInFragment);
         });
 
-        binding.moveToSignUpFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpFragment = new SignUpFragment();
-                showFragment(signUpFragment);
-            }
+        binding.moveToSignUpFragment.setOnClickListener(v -> {
+            signUpFragment = new SignUpFragment();
+            showFragment(signUpFragment);
         });
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                handleBackStackChanged();
-            }
+        getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanged);
 
-            // Mã này trong context của MainActivity của bạn được sử dụng để điều khiển việc hiển thị và ẩn các thành phần giao diện
-            // như ScrollView dựa trên trạng thái của back stack của FragmentManager. Khi bạn thực hiện việc add, replace fragment và commit vào back stack,
-            // nó sẽ tự động ẩn ScrollView khi có fragment được hiển thị và hiển thị lại ScrollView khi back stack trống (không có fragment nào được hiển thị).
-        });
+        // Mã này trong context của MainActivity của bạn được sử dụng để điều khiển việc hiển thị và ẩn các thành phần giao diện
+        // như ScrollView dựa trên trạng thái của back stack của FragmentManager. Khi bạn thực hiện việc add, replace fragment và commit vào back stack,
+        // nó sẽ tự động ẩn ScrollView khi có fragment được hiển thị và hiển thị lại ScrollView khi back stack trống (không có fragment nào được hiển thị).
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        authStateListener = firebaseAuth -> {
+            if (currentUser != null){
+                hideSignInAndUpBtnLayout();
+                binding.moveToHomeLauncher.setVisibility(View.VISIBLE);
+            } else {
+                showSignInAndUpBtnLayout();
+                binding.moveToHomeLauncher.setVisibility(View.GONE);
+            }
+        };
     }
 
-    private void hideLayout() {
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            firebaseAuth.removeAuthStateListener(authStateListener);
+        }
+    }
+
+    private void hideSignInAndUpBtnLayout() {
         binding.moveToSignInFragment.setVisibility(View.GONE);
         binding.moveToSignUpFragment.setVisibility(View.GONE);
     }
 
-    private void showLayout() {
+    private void showSignInAndUpBtnLayout() {
         binding.moveToSignInFragment.setVisibility(View.VISIBLE);
         binding.moveToSignUpFragment.setVisibility(View.VISIBLE);
     }
 
     private void showFragment(Fragment fragment) {
-        hideLayout();
+        hideSignInAndUpBtnLayout();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
@@ -96,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
     private void handleBackStackChanged() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() == 0) {
-            showLayout();
+            showSignInAndUpBtnLayout();
         } else {
-            hideLayout();
+            hideSignInAndUpBtnLayout();
         }
 
 //        getBackStackEntryCount():Phương thức này trả về số lượng entry (transaction) hiện tại trong

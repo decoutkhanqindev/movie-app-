@@ -55,12 +55,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_marginTop="32dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/moveToSignInFragment"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
@@ -72,7 +73,7 @@
 
                 <Button
                     android:id="@+id/moveToSignUpFragment"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
@@ -81,6 +82,25 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle,HardcodedText,VisualLintButtonSize" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/moveToHomeLauncher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:backgroundTint="@color/red"
+                        android:visibility="gone"
+                        android:text="GET STARTED"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:ignore="ButtonStyle,HardcodedText,VisualLintButtonSize" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -90,9 +110,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="155dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="FragmentTagUsage,NotSibling" />
 </androidx.constraintlayout.widget.ConstraintLayout>

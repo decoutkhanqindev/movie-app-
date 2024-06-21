@@ -3,7 +3,6 @@ package com.example.movieapp.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -147,12 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void moveToHomeLauncherActivity() {
-        binding.moveToHomeLauncher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeLauncherActivity.class);
-                startActivity(intent);
-            }
+        binding.moveToHomeLauncher.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HomeLauncherActivity.class);
+            startActivity(intent);
         });
     }
 }

@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.movieapp.databinding.FragmentSignUpBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class SignUpFragment extends Fragment {
     private FragmentSignUpBinding binding;

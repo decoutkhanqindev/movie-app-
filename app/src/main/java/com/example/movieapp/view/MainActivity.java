@@ -2,6 +2,7 @@ package com.example.movieapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +18,8 @@ import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -50,23 +53,23 @@ public class MainActivity extends AppCompatActivity {
             showFragment(signUpFragment);
         });
 
+        authStateListener = firebaseAuth -> {
+            FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+            if (currentUser != null) {
+                binding.linearLayoutContainer.setVisibility(View.GONE);
+                binding.moveToHomeLauncherBtn.setVisibility(View.VISIBLE);
+                moveToHomeLauncherActivity();
+            } else {
+                showSignInAndUpBtnLayout();
+                binding.moveToHomeLauncherBtn.setVisibility(View.GONE);
+            }
+        };
+
         getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanged);
 
         // Mã này trong context của MainActivity của bạn được sử dụng để điều khiển việc hiển thị và ẩn các thành phần giao diện
         // như ScrollView dựa trên trạng thái của back stack của FragmentManager. Khi bạn thực hiện việc add, replace fragment và commit vào back stack,
         // nó sẽ tự động ẩn ScrollView khi có fragment được hiển thị và hiển thị lại ScrollView khi back stack trống (không có fragment nào được hiển thị).
-
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        authStateListener = firebaseAuth -> {
-            if (currentUser != null){
-                hideSignInAndUpBtnLayout();
-                binding.moveToHomeLauncher.setVisibility(View.VISIBLE);
-                moveToHomeLauncherActivity();
-            } else {
-                showSignInAndUpBtnLayout();
-                binding.moveToHomeLauncher.setVisibility(View.GONE);
-            }
-        };
     }
 
     @Override
@@ -144,9 +147,8 @@ public class MainActivity extends AppCompatActivity {
 //        hoàn thành hành động back mặc định(thoát khỏi ứng dụng hoặc activity hiện tại).
     }
 
-
     private void moveToHomeLauncherActivity() {
-        binding.moveToHomeLauncher.setOnClickListener(v -> {
+        binding.moveToHomeLauncherBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HomeLauncherActivity.class);
             startActivity(intent);
         });

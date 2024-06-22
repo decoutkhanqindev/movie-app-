@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/explorer"
+        android:icon="@drawable/btn_1"
+        android:title="Explorer"
+        app:cnb_backgourndColor="@color/red"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/btn_2"
+        android:title="Favorite"
+        app:cnb_backgourndColor="@color/red"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/btn_3"
+        android:title="Cart"
+        app:cnb_backgourndColor="@color/red"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/btn_4"
+        android:title="Profile"
+        app:cnb_backgourndColor="@color/red"
+        tools:ignore="HardcodedText" />
+</menu>

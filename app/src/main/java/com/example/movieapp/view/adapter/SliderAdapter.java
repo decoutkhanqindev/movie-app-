@@ -2,14 +2,21 @@ package com.example.movieapp.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.movieapp.databinding.ActivityHomeLauncherBinding;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.movieapp.R;
 import com.example.movieapp.model.SliderItem;
 
 import java.util.List;
@@ -46,25 +53,57 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     @NonNull
     @Override
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new SliderViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_viewholder, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
+        SliderItem sliderItem = sliderItemList.get(position);
+        holder.setSliderItemViewHolder(sliderItem);
 
+        if (position == sliderItemList.size() - 2){
+            viewPager2.post(runnable);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return sliderItemList.size();
     }
 
-    public static class SliderViewHolder extends RecyclerView.ViewHolder{
-        private ActivityHomeLauncherBinding binding;
+    public class SliderViewHolder extends RecyclerView.ViewHolder {
+        private ImageView slideImg;
+        private TextView slideAge, slideGenre, slideName, slideTime, slideYear;
 
-        public SliderViewHolder(@NonNull ActivityHomeLauncherBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public SliderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            slideImg = itemView.findViewById(R.id.slideImg);
+            slideAge = itemView.findViewById(R.id.slideAge);
+            slideGenre = itemView.findViewById(R.id.slideGenre);
+            slideName = itemView.findViewById(R.id.slideName);
+            slideTime = itemView.findViewById(R.id.slideTime);
+            slideYear = itemView.findViewById(R.id.slideYear);
+        }
+
+        void setSliderItemViewHolder(@NonNull SliderItem sliderItem) {
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(60));
+
+            Glide.with(context)
+                    .load(sliderItem.getImage())
+                    .apply(requestOptions)
+                    .into(slideImg);
+
+            slideAge.setText(sliderItem.getAge());
+            slideGenre.setText(sliderItem.getGenre());
+            slideName.setText(sliderItem.getName());
+            slideTime.setText(sliderItem.getTime());
+            slideYear.setText(sliderItem.getYear());
+
+//            RequestOptions là một lớp của thư viện Glide được sử dụng để cấu hình các tùy chọn cho việc tải và hiển thị hình ảnh.
+//            áp dụng hai biến đổi (transform):
+//            CenterCrop(): Cắt hình ảnh để phù hợp với chiều rộng và chiều cao của ImageView, giữ trung tâm của hình ảnh.
+//            RoundedCorners(60): Làm tròn các góc của hình ảnh với bán kính 60 pixel.
         }
     }
 }

@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
-    private ArrayList<SliderItem> sliderItemArrayList;
-    private ViewPager2 viewPager2;
-    private Context context;
-    private Runnable runnable = new Runnable() {
+    private final ArrayList<SliderItem> sliderItemArrayList;
+    private final ViewPager2 viewPager2;
+    private final Context context;
+    private final Runnable runnable = new Runnable() {
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run() {
@@ -74,8 +74,12 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     }
 
     public class SliderViewHolder extends RecyclerView.ViewHolder {
-        private ImageView slideImg;
-        private TextView slideAge, slideGenre, slideName, slideTime, slideYear;
+        private final ImageView slideImg;
+        private final TextView slideAge;
+        private final TextView slideGenre;
+        private final TextView slideName;
+        private final TextView slideTime;
+        private final TextView slideYear;
 
         public SliderViewHolder(@NonNull View itemView) {
             super(itemView);

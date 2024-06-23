@@ -12,7 +12,7 @@ public class Film implements Serializable {
     private String Time;
     private String Title;
     private String Trailer;
-    private String Year;
+    private int Year;
 
     public Film() {
     }
@@ -81,11 +81,11 @@ public class Film implements Serializable {
         Trailer = trailer;
     }
 
-    public String getYear() {
+    public int getYear() {
         return Year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         Year = year;
     }
 }

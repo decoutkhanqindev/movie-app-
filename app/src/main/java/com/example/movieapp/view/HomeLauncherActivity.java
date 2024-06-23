@@ -30,9 +30,9 @@ import java.util.ArrayList;
 
 public class HomeLauncherActivity extends AppCompatActivity {
     private ActivityHomeLauncherBinding binding;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private Handler sliderHandler = new Handler();
-    private Runnable sliderRunnable = new Runnable() {
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private final Handler sliderHandler = new Handler();
+    private final Runnable sliderRunnable = new Runnable() {
         @Override
         public void run() {
             binding.bannersImg.setCurrentItem(binding.bannersImg.getCurrentItem() + 1);

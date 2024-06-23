@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context=".view.HomeLauncherActivity">
+    tools:context=".view.HomeLauncherActivity"
+    tools:ignore="VisualLintBounds">
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -85,7 +86,7 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText,LabelFor,VisualLintTextFieldSize" />
+                    tools:ignore="HardcodedText,LabelFor,VisualLintTextFieldSize,TouchTargetSizeCheck" />
 
                 <ImageView
                     android:id="@+id/searchBtn"
@@ -247,7 +248,7 @@
         app:cnb_menuResource="@menu/bottom_menu"
         app:cnb_orientationMode="horizontal"
         app:cnb_radius="10dp"
-        app:cnb_iconSize="15sp"
+        app:cnb_iconSize="18sp"
         app:cnb_unselectedColor="@color/white"
         android:background="@drawable/dark_blue_bg"
         app:layout_constraintEnd_toEndOf="parent"

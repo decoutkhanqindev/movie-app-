@@ -30,9 +30,10 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="4dp"
             android:text="abc"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

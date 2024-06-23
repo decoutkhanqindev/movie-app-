@@ -55,7 +55,7 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.FilmLi
         return filmArrayList.size();
     }
 
-    public static class FilmListViewHolder extends RecyclerView.ViewHolder{
+    public static class FilmListViewHolder extends RecyclerView.ViewHolder {
         private final ImageView filmPoster;
         private final TextView filmTitle;
 

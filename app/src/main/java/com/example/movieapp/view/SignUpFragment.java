@@ -1,4 +1,5 @@
 package com.example.movieapp.view;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -51,8 +52,8 @@ public class SignUpFragment extends Fragment {
         String pwd = binding.inputPwdSignUp.getText().toString().trim();
         String pwd2 = binding.inputPwd2SignUp.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd2)){
-            if (pwd.compareTo(pwd2) == 0){
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd2)) {
+            if (pwd.compareTo(pwd2) == 0) {
                 firebaseAuth.createUserWithEmailAndPassword(email, pwd)
                         .addOnSuccessListener(authResult -> {
                             Toast.makeText(requireContext(), "Sign up an account is successful", Toast.LENGTH_SHORT).show();

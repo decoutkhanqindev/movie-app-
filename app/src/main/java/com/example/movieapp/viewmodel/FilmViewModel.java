@@ -22,15 +22,15 @@ public class FilmViewModel extends ViewModel {
         upComingMutableLiveData = filmRepository.getUpComing();
     }
 
-    public MutableLiveData<ArrayList<SliderItem>> getSliderItems(){
+    public MutableLiveData<ArrayList<SliderItem>> getSliderItems() {
         return sliderItemsMultiLiveData;
     }
 
-    public MutableLiveData<ArrayList<Film>> getTopMovies(){
+    public MutableLiveData<ArrayList<Film>> getTopMovies() {
         return topMoviesMutableLiveData;
     }
 
-    public MutableLiveData<ArrayList<Film>> getUpComing(){
+    public MutableLiveData<ArrayList<Film>> getUpComing() {
         return upComingMutableLiveData;
     }
 }

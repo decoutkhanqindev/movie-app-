@@ -63,7 +63,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         SliderItem sliderItem = sliderItemArrayList.get(position);
         holder.setSliderItemViewHolder(sliderItem);
 
-        if (position == sliderItemArrayList.size() - 2){
+        if (position == sliderItemArrayList.size() - 2) {
             viewPager2.post(runnable);
         }
     }

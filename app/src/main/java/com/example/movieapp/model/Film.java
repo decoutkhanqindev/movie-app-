@@ -4,88 +4,88 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Film implements Serializable {
-    private ArrayList<Cast> castArrayList;
-    private String description;
-    private ArrayList<String> genre;
-    private int imdb;
-    private String poster;
-    private String time;
-    private String title;
-    private String trailer;
-    private String year;
+    private ArrayList<Cast> Casts;
+    private String Description;
+    private ArrayList<String> Genre;
+    private int Imdb;
+    private String Poster;
+    private String Time;
+    private String Title;
+    private String Trailer;
+    private String Year;
 
     public Film() {
     }
 
-    public ArrayList<Cast> getCastArrayList() {
-        return castArrayList;
+    public ArrayList<Cast> getCasts() {
+        return Casts;
     }
 
-    public void setCastArrayList(ArrayList<Cast> castArrayList) {
-        this.castArrayList = castArrayList;
+    public void setCasts(ArrayList<Cast> casts) {
+        Casts = casts;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        Description = description;
     }
 
     public ArrayList<String> getGenre() {
-        return genre;
+        return Genre;
     }
 
     public void setGenre(ArrayList<String> genre) {
-        this.genre = genre;
+        Genre = genre;
     }
 
     public int getImdb() {
-        return imdb;
+        return Imdb;
     }
 
     public void setImdb(int imdb) {
-        this.imdb = imdb;
+        Imdb = imdb;
     }
 
     public String getPoster() {
-        return poster;
+        return Poster;
     }
 
     public void setPoster(String poster) {
-        this.poster = poster;
+        Poster = poster;
     }
 
     public String getTime() {
-        return time;
+        return Time;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        Time = time;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        Title = title;
     }
 
     public String getTrailer() {
-        return trailer;
+        return Trailer;
     }
 
     public void setTrailer(String trailer) {
-        this.trailer = trailer;
+        Trailer = trailer;
     }
 
     public String getYear() {
-        return year;
+        return Year;
     }
 
     public void setYear(String year) {
-        this.year = year;
+        Year = year;
     }
 }

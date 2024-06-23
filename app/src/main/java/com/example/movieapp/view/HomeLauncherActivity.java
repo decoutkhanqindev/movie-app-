@@ -58,33 +58,7 @@ public class HomeLauncherActivity extends AppCompatActivity {
 
         getSliderBannersFromFirebase();
         getTopMoviesFromFirebase();
-    }
-
-    private void getTopMoviesFromFirebase() {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Items");
-        binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
-        ArrayList<Film> filmArrayList = new ArrayList<>();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        filmArrayList.add(issue.getValue(Film.class));
-                    }
-
-                    if (!filmArrayList.isEmpty()){
-                        binding.topMoviesRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        binding.topMoviesRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, filmArrayList));
-                    }
-                    binding.topMoviesProgressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        getUpComingFromFirebase();
     }
 
     private void getSliderBannersFromFirebase() {
@@ -204,5 +178,59 @@ public class HomeLauncherActivity extends AppCompatActivity {
 //        sliderHandler.postDelayed(sliderRunnable, 2000):Lên lịch cho sliderRunnable để được
 //        thực hiện sau 2000 milliseconds(2giây).Điều này khởi động lại việc tự động cuộn khi Activity
 //        trở lại trạng thái hoạt động.
+    }
+
+    private void getTopMoviesFromFirebase() {
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Items");
+        binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
+        ArrayList<Film> filmArrayList = new ArrayList<>();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        filmArrayList.add(issue.getValue(Film.class));
+                    }
+
+                    if (!filmArrayList.isEmpty()){
+                        binding.topMoviesRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        binding.topMoviesRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, filmArrayList));
+                    }
+                    binding.topMoviesProgressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getUpComingFromFirebase() {
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Upcomming");
+        binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
+        ArrayList<Film> filmArrayList = new ArrayList<>();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        filmArrayList.add(issue.getValue(Film.class));
+                    }
+
+                    if (!filmArrayList.isEmpty()) {
+                        binding.upComingRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        binding.upComingRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, filmArrayList));
+                    }
+                    binding.upComingProgressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

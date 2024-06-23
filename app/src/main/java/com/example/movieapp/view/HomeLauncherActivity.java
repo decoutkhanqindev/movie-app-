@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,12 +25,16 @@ import com.example.movieapp.model.SliderItem;
 import com.example.movieapp.view.adapter.FilmListAdapter;
 import com.example.movieapp.view.adapter.SliderAdapter;
 import com.example.movieapp.viewmodel.FilmViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 public class HomeLauncherActivity extends AppCompatActivity {
     private ActivityHomeLauncherBinding binding;
     private FilmViewModel viewModel;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     private final Handler sliderHandler = new Handler();
     private final Runnable sliderRunnable = new Runnable() {
@@ -45,7 +52,7 @@ public class HomeLauncherActivity extends AppCompatActivity {
         binding = ActivityHomeLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.homeLauncher), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -58,17 +65,41 @@ public class HomeLauncherActivity extends AppCompatActivity {
         getUpComingFromFirebase();
     }
 
+    private void hideHomeLauncherScreen(){
+        binding.scrollView3.setVisibility(View.GONE);
+        binding.chipNavigationBar.setVisibility(View.GONE);
+    }
+
+    private void showHomeLauncherScreen(){
+        binding.scrollView3.setVisibility(View.VISIBLE);
+        binding.chipNavigationBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout2, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     private void getSliderBannersFromFirebase() {
         binding.bannersProgressBar.setVisibility(View.VISIBLE);
         viewModel.getSliderItems().observe(HomeLauncherActivity.this, sliderItems -> {
             if (sliderItems != null){
-                setBannersViewPager2(sliderItems);
+                setBannersTransform(sliderItems);
                 binding.bannersProgressBar.setVisibility(View.GONE);
             }
         });
     }
 
-    private void setBannersViewPager2(ArrayList<SliderItem> sliderItemArrayList) {
+    private void setBannersTransform(ArrayList<SliderItem> sliderItemArrayList) {
         binding.bannersImg.setAdapter(new SliderAdapter(binding.bannersImg.getContext(), sliderItemArrayList, binding.bannersImg));
         binding.bannersImg.setClipToPadding(false);
         binding.bannersImg.setClipChildren(false);

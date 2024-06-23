@@ -58,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
             if (currentUser != null) {
                 binding.linearLayoutContainer.setVisibility(View.GONE);
                 binding.moveToHomeLauncherBtn.setVisibility(View.VISIBLE);
-                moveToHomeLauncherActivity();
             } else {
                 showSignInAndUpBtnLayout();
                 binding.moveToHomeLauncherBtn.setVisibility(View.GONE);
             }
         };
+
+        moveToHomeLauncherActivity();
 
         getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanged);
 

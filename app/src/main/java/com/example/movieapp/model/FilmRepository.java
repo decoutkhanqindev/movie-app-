@@ -22,8 +22,6 @@ public class FilmRepository {
     private final MutableLiveData<ArrayList<Film>> topMoviesMutableLiveData = new MutableLiveData<>();
     private final ArrayList<Film> upComingArrayList = new ArrayList<>();
     private final MutableLiveData<ArrayList<Film>> upComingMutableLiveData = new MutableLiveData<>();
-    private final ArrayList<User> userArrayList = new ArrayList<>();
-    private final MutableLiveData<ArrayList<User>> userMutableLiveData = new MutableLiveData<>();
 
     public static  synchronized FilmRepository getInstance(){
         if (instance == null){
@@ -106,32 +104,6 @@ public class FilmRepository {
         });
 
         return upComingMutableLiveData;
-    }
-
-
-    public MutableLiveData<ArrayList<User>> getUsers() {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("User");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot issue : snapshot.getChildren()){
-                        User user = issue.getValue(User.class);
-                        if (user != null){
-                            userArrayList.add(user);
-                        }
-                    }
-                    userMutableLiveData.setValue(userArrayList);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("onCancelled to get user ", error.getMessage());
-            }
-        });
-
-        return userMutableLiveData;
     }
 }
 

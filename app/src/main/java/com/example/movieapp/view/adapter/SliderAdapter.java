@@ -19,17 +19,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.movieapp.R;
 import com.example.movieapp.model.SliderItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
-    private List<SliderItem> sliderItemList;
+    private ArrayList<SliderItem> sliderItemArrayList;
     private ViewPager2 viewPager2;
     private Context context;
     private Runnable runnable = new Runnable() {
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run() {
-            sliderItemList.addAll(sliderItemList);
+            sliderItemArrayList.addAll(sliderItemArrayList);
             notifyDataSetChanged();
         }
     };
@@ -45,9 +46,10 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 //    notifyDataSetChanged() được sử dụng để cập nhật lại giao diện người dùng sau khi danh sách được thay đổi.
 
 
-    public SliderAdapter(Context context, List<SliderItem> sliderItemList) {
+    public SliderAdapter(Context context, ArrayList<SliderItem> sliderItemArrayList, ViewPager2 viewPager2) {
         this.context = context;
-        this.sliderItemList = sliderItemList;
+        this.sliderItemArrayList = sliderItemArrayList;
+        this.viewPager2 = viewPager2;
     }
 
     @NonNull
@@ -58,17 +60,17 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        SliderItem sliderItem = sliderItemList.get(position);
+        SliderItem sliderItem = sliderItemArrayList.get(position);
         holder.setSliderItemViewHolder(sliderItem);
 
-        if (position == sliderItemList.size() - 2){
+        if (position == sliderItemArrayList.size() - 2){
             viewPager2.post(runnable);
         }
     }
 
     @Override
     public int getItemCount() {
-        return sliderItemList.size();
+        return sliderItemArrayList.size();
     }
 
     public class SliderViewHolder extends RecyclerView.ViewHolder {

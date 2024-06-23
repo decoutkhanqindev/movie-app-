@@ -206,7 +206,7 @@
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText,TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/upComingSeeAllBtn"

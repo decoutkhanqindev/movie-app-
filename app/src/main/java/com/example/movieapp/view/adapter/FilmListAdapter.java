@@ -45,11 +45,8 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.FilmLi
 
         holder.filmTitle.setText(film.getTitle());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.itemView.setOnClickListener(v -> {
 
-            }
         });
     }
 
@@ -59,8 +56,8 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.FilmLi
     }
 
     public static class FilmListViewHolder extends RecyclerView.ViewHolder{
-        private ImageView filmPoster;
-        private TextView filmTitle;
+        private final ImageView filmPoster;
+        private final TextView filmTitle;
 
         public FilmListViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -3,14 +3,13 @@ package com.example.movieapp.view;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -19,21 +18,17 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityHomeLauncherBinding;
-import com.example.movieapp.model.Film;
 import com.example.movieapp.model.SliderItem;
 import com.example.movieapp.view.adapter.FilmListAdapter;
 import com.example.movieapp.view.adapter.SliderAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.movieapp.viewmodel.FilmViewModel;
 
 import java.util.ArrayList;
 
 public class HomeLauncherActivity extends AppCompatActivity {
     private ActivityHomeLauncherBinding binding;
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FilmViewModel viewModel;
+
     private final Handler sliderHandler = new Handler();
     private final Runnable sliderRunnable = new Runnable() {
         @Override
@@ -56,30 +51,19 @@ public class HomeLauncherActivity extends AppCompatActivity {
             return insets;
         });
 
+        viewModel = new ViewModelProvider(this).get(FilmViewModel.class);
+
         getSliderBannersFromFirebase();
         getTopMoviesFromFirebase();
         getUpComingFromFirebase();
     }
 
     private void getSliderBannersFromFirebase() {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Banners");
         binding.bannersProgressBar.setVisibility(View.VISIBLE);
-        ArrayList<SliderItem> sliderItemArrayList = new ArrayList<>();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        sliderItemArrayList.add(issue.getValue(SliderItem.class));
-                    }
-                    setBannersViewPager2(sliderItemArrayList);
-                    binding.bannersProgressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+        viewModel.getSliderItems().observe(HomeLauncherActivity.this, sliderItems -> {
+            if (sliderItems != null){
+                setBannersViewPager2(sliderItems);
+                binding.bannersProgressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -181,55 +165,23 @@ public class HomeLauncherActivity extends AppCompatActivity {
     }
 
     private void getTopMoviesFromFirebase() {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Items");
         binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
-        ArrayList<Film> filmArrayList = new ArrayList<>();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        filmArrayList.add(issue.getValue(Film.class));
-                    }
-
-                    if (!filmArrayList.isEmpty()){
-                        binding.topMoviesRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        binding.topMoviesRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, filmArrayList));
-                    }
-                    binding.topMoviesProgressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+        viewModel.getTopMovies().observe(HomeLauncherActivity.this, films -> {
+            binding.topMoviesProgressBar.setVisibility(View.GONE);
+            if (films != null){
+                binding.topMoviesRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                binding.topMoviesRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, films));
             }
         });
     }
 
     private void getUpComingFromFirebase() {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Upcomming");
-        binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
-        ArrayList<Film> filmArrayList = new ArrayList<>();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        filmArrayList.add(issue.getValue(Film.class));
-                    }
-
-                    if (!filmArrayList.isEmpty()) {
-                        binding.upComingRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        binding.upComingRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, filmArrayList));
-                    }
-                    binding.upComingProgressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+        binding.upComingProgressBar.setVisibility(View.VISIBLE);
+        viewModel.getUpComing().observe(HomeLauncherActivity.this, films -> {
+            binding.upComingProgressBar.setVisibility(View.GONE);
+            if (films != null){
+                binding.upComingRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                binding.upComingRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, films));
             }
         });
     }

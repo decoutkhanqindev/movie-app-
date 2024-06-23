@@ -104,7 +104,7 @@ public class HomeLauncherActivity extends AppCompatActivity {
             @Override
             public void transformPage(@NonNull View page, float position) {
                 float r = 1 - Math.abs(position);
-                page.setScaleY(0.85f + 0.15f);
+                page.setScaleY(0.85f + r * 0.15f);
             }
         });
 

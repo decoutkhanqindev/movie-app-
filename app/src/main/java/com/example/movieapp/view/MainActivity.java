@@ -19,8 +19,6 @@ import com.example.movieapp.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private SignInFragment signInFragment;
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener authStateListener;
-
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,34 +41,30 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        binding.moveToSignInFragment.setOnClickListener(v -> {
-            signInFragment = new SignInFragment();
-            showFragment(signInFragment);
-        });
+        signInFragment = new SignInFragment();
+        signUpFragment = new SignUpFragment();
 
-        binding.moveToSignUpFragment.setOnClickListener(v -> {
-            signUpFragment = new SignUpFragment();
-            showFragment(signUpFragment);
-        });
+        binding.moveToSignInFragment.setOnClickListener(v -> showFragment(signInFragment));
 
-        authStateListener = firebaseAuth -> {
-            FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-            if (currentUser != null) {
-                binding.linearLayoutContainer.setVisibility(View.GONE);
-                binding.moveToHomeLauncherBtn.setVisibility(View.VISIBLE);
-            } else {
-                showSignInAndUpBtnLayout();
-                binding.moveToHomeLauncherBtn.setVisibility(View.GONE);
-            }
-        };
-
-        moveToHomeLauncherActivity();
+        binding.moveToSignUpFragment.setOnClickListener(v -> showFragment(signUpFragment));
 
         getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanged);
 
         // Mã này trong context của MainActivity của bạn được sử dụng để điều khiển việc hiển thị và ẩn các thành phần giao diện
         // như ScrollView dựa trên trạng thái của back stack của FragmentManager. Khi bạn thực hiện việc add, replace fragment và commit vào back stack,
         // nó sẽ tự động ẩn ScrollView khi có fragment được hiển thị và hiển thị lại ScrollView khi back stack trống (không có fragment nào được hiển thị).
+
+        authStateListener = firebaseAuth -> {
+            currentUser = firebaseAuth.getCurrentUser();
+            if (currentUser != null) {
+                binding.linearLayoutContainer.setVisibility(View.GONE);
+                binding.moveToHomeLauncherBtn.setVisibility(View.VISIBLE);
+                moveToHomeLauncherActivity();
+            } else {
+                binding.linearLayoutContainer.setVisibility(View.VISIBLE);
+                binding.moveToHomeLauncherBtn.setVisibility(View.GONE);
+            }
+        };
     }
 
     @Override

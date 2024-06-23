@@ -55,10 +55,7 @@ public class SignInFragment extends Fragment {
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pwd)) {
             firebaseAuth.signInWithEmailAndPassword(email, pwd)
-                    .addOnSuccessListener(authResult -> {
-                        Toast.makeText(requireContext(), "Signed in successfully", Toast.LENGTH_SHORT).show();
-                        hideFragment();
-                    })
+                    .addOnSuccessListener(authResult -> Toast.makeText(requireContext(), "Signed in successfully", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> {
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
                             Toast.makeText(requireContext(), "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();

@@ -54,15 +54,11 @@ public class SignUpFragment extends Fragment {
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd2)){
             if (pwd.compareTo(pwd2) == 0){
                 firebaseAuth.createUserWithEmailAndPassword(email, pwd)
-                        .addOnCompleteListener(requireActivity(), task -> {
-                            if (task.isSuccessful()){
-                                Toast.makeText(requireContext(), "Sign up an account is successful", Toast.LENGTH_SHORT).show();
-                                hideFragment();
-                            }
+                        .addOnSuccessListener(authResult -> {
+                            Toast.makeText(requireContext(), "Sign up an account is successful", Toast.LENGTH_SHORT).show();
+                            firebaseAuth.signOut();
                         })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
+                        .addOnFailureListener(e -> Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show());
             } else {
                 Toast.makeText(requireContext(), "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
             }

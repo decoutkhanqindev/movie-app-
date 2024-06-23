@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -18,7 +19,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityHomeLauncherBinding;
+import com.example.movieapp.model.Film;
 import com.example.movieapp.model.SliderItem;
+import com.example.movieapp.view.adapter.FilmListAdapter;
 import com.example.movieapp.view.adapter.SliderAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +57,34 @@ public class HomeLauncherActivity extends AppCompatActivity {
         });
 
         getSliderBannersFromFirebase();
+        getTopMoviesFromFirebase();
+    }
+
+    private void getTopMoviesFromFirebase() {
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Items");
+        binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
+        ArrayList<Film> filmArrayList = new ArrayList<>();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        filmArrayList.add(issue.getValue(Film.class));
+                    }
+
+                    if (!filmArrayList.isEmpty()){
+                        binding.topMoviesRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        binding.topMoviesRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, filmArrayList));
+                    }
+                    binding.topMoviesProgressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeLauncherActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getSliderBannersFromFirebase() {

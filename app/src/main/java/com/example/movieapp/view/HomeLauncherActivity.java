@@ -100,12 +100,9 @@ public class HomeLauncherActivity extends AppCompatActivity {
 
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleY(0.85f + r * 0.15f);
-            }
+        compositePageTransformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.85f + r * 0.15f);
         });
 
 //        PageTransformer để tạo hiệu ứng chuyển đổi trang và xử lý sự kiện thay đổi trang. Dưới đây là giải thích chi tiết từng phần của đoạn mã:

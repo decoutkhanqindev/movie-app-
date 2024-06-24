@@ -60,7 +60,7 @@ public class SIgnUpUserNameFragment extends Fragment {
     private void updateUserName() {
         String userName = binding.inputUserName.getText().toString();
 
-        if (!TextUtils.isEmpty(userName)){
+        if (!TextUtils.isEmpty(userName)) {
             UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(userName).build();
             currentUser.updateProfile(userProfileChangeRequest)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

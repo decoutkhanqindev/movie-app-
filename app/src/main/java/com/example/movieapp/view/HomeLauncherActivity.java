@@ -2,7 +2,6 @@ package com.example.movieapp.view;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -68,7 +67,7 @@ public class HomeLauncherActivity extends AppCompatActivity {
         authStateListener = firebaseAuth -> {
             currentUser = firebaseAuth.getCurrentUser();
             if (currentUser != null) {
-                if (currentUser.getDisplayName() == null){
+                if (currentUser.getDisplayName() == null) {
                     hideHomeLauncherScreen();
                     showFragment(sIgnUpUserNameFragment);
                 } else {

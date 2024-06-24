@@ -15,6 +15,9 @@
         tools:ignore="UnusedAttribute"
         tools:targetApi="31">
         <activity
+            android:name=".view.FilmDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.HomeLauncherActivity"
             android:exported="false" />
         <activity

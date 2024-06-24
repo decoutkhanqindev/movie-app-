@@ -1,17 +1,16 @@
 package com.example.movieapp.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.movieapp.databinding.FragmentSignInBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,7 +54,10 @@ public class SignInFragment extends Fragment {
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pwd)) {
             firebaseAuth.signInWithEmailAndPassword(email, pwd)
-                    .addOnSuccessListener(authResult -> Toast.makeText(requireContext(), "Signed in successfully", Toast.LENGTH_SHORT).show())
+                    .addOnSuccessListener(authResult -> {
+                        Toast.makeText(requireContext(), "Signed in successfully", Toast.LENGTH_SHORT).show();
+                        hideFragment();
+                    })
                     .addOnFailureListener(e -> {
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
                             Toast.makeText(requireContext(), "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();

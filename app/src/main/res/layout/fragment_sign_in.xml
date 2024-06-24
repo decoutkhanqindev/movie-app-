@@ -43,13 +43,13 @@
             android:id="@+id/inputEmailSignIn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="10dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/stroke_bg"
             android:hint="Email"
-            android:textColorHint="@color/white"
             android:inputType="textEmailAddress"
+            android:padding="10dp"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="20sp"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
@@ -57,11 +57,11 @@
             android:id="@+id/inputPwdSignIn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="10dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/stroke_bg"
             android:hint="Password"
             android:inputType="textPassword"
+            android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp"
@@ -75,6 +75,7 @@
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/red"
             android:text="SIGN IN"
+            android:textColor="@color/white"
             android:textSize="20sp"
             tools:ignore="DuplicateSpeakableTextCheck,HardcodedText" />
     </LinearLayout>

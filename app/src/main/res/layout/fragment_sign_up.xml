@@ -44,11 +44,11 @@
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/stroke_bg"
-            android:padding="10dp"
-            android:textColorHint="@color/white"
             android:hint="Email"
             android:inputType="textEmailAddress"
+            android:padding="10dp"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="20sp"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
@@ -58,11 +58,11 @@
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/stroke_bg"
-            android:padding="10dp"
-            android:textColorHint="@color/white"
             android:hint="Password"
             android:inputType="textPassword"
+            android:padding="10dp"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="20sp"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
@@ -72,11 +72,11 @@
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/stroke_bg"
-            android:padding="10dp"
-            android:textColorHint="@color/white"
             android:hint="Confirm password"
             android:inputType="textPassword"
+            android:padding="10dp"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="20sp"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
@@ -88,6 +88,7 @@
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/red"
             android:text="SIGN UP"
+            android:textColor="@color/white"
             android:textSize="20sp"
             tools:ignore="DuplicateSpeakableTextCheck,HardcodedText" />
     </LinearLayout>

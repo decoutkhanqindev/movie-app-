@@ -243,24 +243,24 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/chipNavigationBar"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
         android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/dark_blue_bg"
+        app:cnb_iconSize="18sp"
         app:cnb_menuResource="@menu/bottom_menu"
         app:cnb_orientationMode="horizontal"
         app:cnb_radius="10dp"
-        app:cnb_iconSize="18sp"
         app:cnb_unselectedColor="@color/white"
-        android:background="@drawable/dark_blue_bg"
+        app:layout_constraintBottom_toBottomOf="@id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/scrollView3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

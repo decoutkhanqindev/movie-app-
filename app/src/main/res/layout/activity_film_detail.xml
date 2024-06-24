@@ -83,19 +83,19 @@
                             tools:ignore="HardcodedText" />
 
                         <ImageView
-                            android:layout_gravity="center"
                             android:id="@+id/filmBookMarkBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginEnd="20dp"
                             android:src="@drawable/bookmark"
                             tools:ignore="ContentDescription" />
 
                         <ImageView
-                            android:layout_gravity="center"
                             android:id="@+id/filmShareBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:src="@drawable/share"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>
@@ -219,8 +219,8 @@
                 android:paddingEnd="20dp"
                 android:text="Watch now"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/detailLayer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

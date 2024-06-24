@@ -20,7 +20,6 @@ import com.example.movieapp.R;
 import com.example.movieapp.model.SliderItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
     private final ArrayList<SliderItem> sliderItemArrayList;

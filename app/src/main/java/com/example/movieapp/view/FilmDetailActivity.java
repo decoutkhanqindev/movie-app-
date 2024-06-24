@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -23,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityFilmDetailBinding;
 import com.example.movieapp.model.Film;
+import com.example.movieapp.view.adapter.GenreListAdapter;
 
 import java.util.Objects;
 
@@ -96,5 +98,10 @@ public class FilmDetailActivity extends AppCompatActivity {
 //        hình dạng của detailLayer.
 //        setClipToOutline(true):Giới hạn các nội dung con của detailLayer theo outline đã xác
 //        định.Điều này đảm bảo rằng hiệu ứng làm mờ sẽ tuân theo các góc bo tròn.
+
+        if (item.getGenre() != null){
+            binding.filmDetailGenreView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false ));
+            binding.filmDetailGenreView.setAdapter(new GenreListAdapter(this, item.getGenre()));
+        }
     }
 }

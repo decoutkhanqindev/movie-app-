@@ -7,7 +7,7 @@
 
     <style name="Theme.MovieApp" parent="Base.Theme.MovieApp" />
 
-    <style name="circleImgView">
+    <style name="circleImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>

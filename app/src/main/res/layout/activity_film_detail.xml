@@ -5,13 +5,13 @@
     android:id="@+id/filmDetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     tools:context=".view.FilmDetailActivity">
 
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_color"
         tools:ignore="SpeakableTextPresentCheck">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +46,7 @@
                 android:id="@+id/detailLayer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="32dp"
+                android:layout_margin="16dp"
                 android:background="@drawable/blur_bg"
                 app:blurOverlayColor="#90000000"
                 app:layout_constraintBottom_toBottomOf="@+id/filmDetailPoster"
@@ -78,11 +78,12 @@
                             android:layout_weight="1"
                             android:text="Film Title"
                             android:textColor="@color/white"
-                            android:textSize="32sp"
+                            android:textSize="48sp"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
 
                         <ImageView
+                            android:layout_gravity="center"
                             android:id="@+id/filmBookMarkBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -91,6 +92,7 @@
                             tools:ignore="ContentDescription" />
 
                         <ImageView
+                            android:layout_gravity="center"
                             android:id="@+id/filmShareBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -127,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:text="2023"
                             android:textColor="@color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText" />
 
                         <TextView
@@ -135,10 +137,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:layout_marginEnd="203dp"
+                            android:layout_marginEnd="165dp"
                             android:text="- 1h 38m"
                             android:textColor="@color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
+
                             tools:ignore="HardcodedText" />
 
                         <TextView
@@ -147,7 +150,8 @@
                             android:layout_height="wrap_content"
                             android:text="IMDB: 7.5"
                             android:textColor="@color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
+
                             tools:ignore="HardcodedText" />
                     </LinearLayout>
 
@@ -163,7 +167,8 @@
                             android:layout_height="wrap_content"
                             android:text="Summary"
                             android:textColor="@color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
+
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
 
@@ -172,7 +177,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="17sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -187,18 +192,18 @@
                             android:layout_height="wrap_content"
                             android:text="Cast"
                             android:textColor="@color/white"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
+
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/filmDetailCastView"
-                            android:layout_width="match_parent"
+                            android:layout_width="383dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="8dp"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp" />
+                            android:layout_marginBottom="35dp" />
                     </LinearLayout>
                 </LinearLayout>
             </eightbitlab.com.blurview.BlurView>
@@ -215,6 +220,7 @@
                 android:text="Watch now"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/detailLayer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

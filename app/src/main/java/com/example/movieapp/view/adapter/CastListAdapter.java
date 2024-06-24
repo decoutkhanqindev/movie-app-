@@ -1,6 +1,7 @@
 package com.example.movieapp.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,8 @@ import com.example.movieapp.model.Cast;
 import java.util.ArrayList;
 
 public class CastListAdapter extends RecyclerView.Adapter<CastListAdapter.CastViewHolder> {
-    private Context context;
-    private ArrayList<Cast> castArrayList;
+    private final Context context;
+    private final ArrayList<Cast> castArrayList;
 
     public CastListAdapter(Context context, ArrayList<Cast> castArrayList) {
         this.context = context;
@@ -46,10 +47,9 @@ public class CastListAdapter extends RecyclerView.Adapter<CastListAdapter.CastVi
         return castArrayList.size();
     }
 
-
     public static class CastViewHolder extends RecyclerView.ViewHolder{
-        private ImageView castImg;
-        private TextView castName;
+        private final ImageView castImg;
+        private final TextView castName;
 
         public CastViewHolder(@NonNull View itemView) {
             super(itemView);

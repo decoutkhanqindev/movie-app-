@@ -34,5 +34,5 @@
         android:text="Next"
         android:textColor="@color/white"
         android:textSize="15sp"
-        tools:ignore="HardcodedText,TextContrastCheck" />
+        tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 </FrameLayout>

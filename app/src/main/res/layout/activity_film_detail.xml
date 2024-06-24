@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/filmDetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.FilmDetailActivity">
@@ -11,23 +11,12 @@
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/main_color"
         tools:ignore="SpeakableTextPresentCheck">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/backDetailBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:src="@drawable/back"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.065"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription,ImageContrastCheck" />
 
             <ImageView
                 android:id="@+id/filmDetailPoster"
@@ -39,17 +28,32 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
+            <ImageView
+                android:id="@+id/backHomeLauncherBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.039"
+                tools:ignore="ContentDescription,ImageContrastCheck" />
+
+
             <eightbitlab.com.blurview.BlurView
                 android:id="@+id/detailLayer"
                 android:layout_width="0dp"
-                android:layout_height="600dp"
+                android:layout_height="500dp"
                 android:layout_margin="32dp"
                 android:background="@drawable/blur_bg"
                 app:blurOverlayColor="#90000000"
                 app:layout_constraintBottom_toBottomOf="@+id/filmDetailPoster"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/filmDetailPoster">
+                app:layout_constraintTop_toBottomOf="@+id/filmDetailPoster"
+                tools:ignore="TextSizeCheck">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +72,7 @@
                         tools:ignore="UselessParent">
 
                         <TextView
-                            android:id="@+id/filmTitle"
+                            android:id="@+id/filmDetailTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -106,15 +110,15 @@
 
                     <View
                         android:id="@+id/view"
-                        android:background="@drawable/gradient"
-                        android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="2dp" />
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/gradient" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_marginTop="8dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -122,19 +126,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2023"
-                            android:textSize="15sp"
                             android:textColor="@color/white"
+                            android:textSize="15sp"
                             tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/filmDetailTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="- 1h 38m"
                             android:layout_marginStart="5dp"
-                            android:textSize="15sp"
                             android:layout_marginEnd="203dp"
+                            android:text="- 1h 38m"
                             android:textColor="@color/white"
+                            android:textSize="15sp"
                             tools:ignore="HardcodedText" />
 
                         <TextView
@@ -142,8 +146,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="IMDB: 7.5"
-                            android:textSize="15sp"
                             android:textColor="@color/white"
+                            android:textSize="15sp"
                             tools:ignore="HardcodedText" />
                     </LinearLayout>
 
@@ -155,20 +159,20 @@
 
                         <TextView
                             android:id="@+id/filmDetailDescriptionTitle"
-                            android:text="Summary"
-                            android:textSize="15sp"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="Summary"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
                             tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/filmDetailDescription"
-                            android:textSize="15sp"
-                            android:textColor="@color/white"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -179,34 +183,38 @@
 
                         <TextView
                             android:id="@+id/filmDetailCastTitle"
-                            android:text="Cast"
-                            android:textSize="15sp"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="Cast"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
                             tools:ignore="HardcodedText" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/filmDetailCast"
-                            android:layout_marginTop="8dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp" />
                     </LinearLayout>
                 </LinearLayout>
             </eightbitlab.com.blurview.BlurView>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/filmDetailWatchBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/red_bg"
-                android:text="Watch now"
+                android:drawableEnd="@drawable/play_circle"
+                android:drawablePadding="8dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:text="Watch now"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:drawablePadding="8dp"
-                android:drawableEnd="@drawable/play_circle"
                 app:layout_constraintBottom_toBottomOf="@+id/detailLayer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -15,8 +15,8 @@ import com.example.movieapp.model.Film;
 import java.util.ArrayList;
 
 public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.GenreViewHolder> {
-    private Context context;
-    private ArrayList<String> genreArrList;
+    private final Context context;
+    private final ArrayList<String> genreArrList;
 
     public GenreListAdapter(Context context, ArrayList<String> genreArrList) {
         this.context = context;
@@ -42,7 +42,7 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.Genr
     }
 
     public static class GenreViewHolder extends RecyclerView.ViewHolder{
-        private TextView  genre;
+        private final TextView  genre;
 
         public GenreViewHolder(@NonNull View itemView) {
             super(itemView);

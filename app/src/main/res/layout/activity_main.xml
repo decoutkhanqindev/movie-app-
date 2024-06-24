@@ -102,6 +102,7 @@
                     android:backgroundTint="@color/red"
                     android:visibility="gone"
                     android:text="GET STARTED"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle,HardcodedText,VisualLintButtonSize" />

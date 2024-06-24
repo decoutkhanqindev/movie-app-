@@ -74,7 +74,7 @@
             android:background="@drawable/stroke_bg"
             android:padding="10dp"
             android:textColorHint="@color/white"
-            android:hint="Re-enter the password one more time"
+            android:hint="Confirm password"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textSize="20sp"

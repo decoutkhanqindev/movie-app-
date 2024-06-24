@@ -24,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityFilmDetailBinding;
 import com.example.movieapp.model.Film;
+import com.example.movieapp.view.adapter.CastListAdapter;
 import com.example.movieapp.view.adapter.GenreListAdapter;
 
 import java.util.Objects;
@@ -55,11 +56,11 @@ public class FilmDetailActivity extends AppCompatActivity {
         Film item = (Film) getIntent().getSerializableExtra("Film");
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions.transform(new CenterCrop(), new GranularRoundedCorners(0, 0, 50, 50));
-
 //        GranularRoundedCorners là một tính năng của thư viện Glide, dùng để áp dụng các góc bo
 //        tròn riêng lẻ cho mỗi góc của hình ảnh.Điều này có nghĩa là bạn có thể thiết lập các giá
 //        trị bo tròn khác nhau cho các góc trên cùng bên trái, trên cùng bên phải, dưới cùng bên
 //        trái, và dưới cùng bên phải của hình ảnh.
+
         Glide.with(this).load(Objects.requireNonNull(item).getPoster()).apply(requestOptions).into(binding.filmDetailPoster);
 
         binding.filmDetailTitle.setText(item.getTitle());
@@ -102,6 +103,11 @@ public class FilmDetailActivity extends AppCompatActivity {
         if (item.getGenre() != null){
             binding.filmDetailGenreView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false ));
             binding.filmDetailGenreView.setAdapter(new GenreListAdapter(this, item.getGenre()));
+        }
+
+        if (item.getCasts() != null){
+            binding.filmDetailCastView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            binding.filmDetailCastView.setAdapter(new CastListAdapter(this, item.getCasts()));
         }
     }
 }

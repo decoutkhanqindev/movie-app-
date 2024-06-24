@@ -20,9 +20,9 @@ public class CastListAdapter extends RecyclerView.Adapter<CastListAdapter.CastVi
     private Context context;
     private ArrayList<Cast> castArrayList;
 
-    public CastListAdapter(ArrayList<Cast> castArrayList, Context context) {
-        this.castArrayList = castArrayList;
+    public CastListAdapter(Context context, ArrayList<Cast> castArrayList) {
         this.context = context;
+        this.castArrayList = castArrayList;
     }
 
     @NonNull

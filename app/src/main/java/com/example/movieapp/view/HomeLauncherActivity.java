@@ -2,6 +2,7 @@ package com.example.movieapp.view;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -33,8 +34,11 @@ import java.util.ArrayList;
 public class HomeLauncherActivity extends AppCompatActivity {
     private ActivityHomeLauncherBinding binding;
     private FilmViewModel viewModel;
+    private SIgnUpUserNameFragment sIgnUpUserNameFragment;
 
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
 
     private final Handler sliderHandler = new Handler();
     private final Runnable sliderRunnable = new Runnable() {
@@ -59,26 +63,49 @@ public class HomeLauncherActivity extends AppCompatActivity {
         });
 
         viewModel = new ViewModelProvider(this).get(FilmViewModel.class);
+        sIgnUpUserNameFragment = new SIgnUpUserNameFragment();
 
-        getSliderBannersFromFirebase();
-        getTopMoviesFromFirebase();
-        getUpComingFromFirebase();
+        authStateListener = firebaseAuth -> {
+            currentUser = firebaseAuth.getCurrentUser();
+            if (currentUser != null) {
+                if (currentUser.getDisplayName() == null){
+                    hideHomeLauncherScreen();
+                    showFragment(sIgnUpUserNameFragment);
+                } else {
+                    updateUserNameAndEmail();
+                    showHomeLauncherScreen();
+                }
+                getSliderBannersFromFirebase();
+                getTopMoviesFromFirebase();
+                getUpComingFromFirebase();
+            }
+        };
+
+        getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanged);
     }
 
-    private void hideHomeLauncherScreen(){
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            firebaseAuth.removeAuthStateListener(authStateListener);
+        }
+    }
+
+    private void hideHomeLauncherScreen() {
         binding.scrollView3.setVisibility(View.GONE);
         binding.chipNavigationBar.setVisibility(View.GONE);
     }
 
-    private void showHomeLauncherScreen(){
+    private void showHomeLauncherScreen() {
         binding.scrollView3.setVisibility(View.VISIBLE);
         binding.chipNavigationBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
     }
 
     private void showFragment(Fragment fragment) {
@@ -89,10 +116,29 @@ public class HomeLauncherActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void updateUserNameAndEmail() {
+        String userName = currentUser.getDisplayName();
+        String userEmail = currentUser.getEmail();
+
+        if (userName != null && userEmail != null) {
+            binding.userName.setText(userName);
+            binding.userEmail.setText(userEmail);
+        }
+    }
+
+    private void handleBackStackChanged() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() == 0) {
+            showHomeLauncherScreen();
+        } else {
+            hideHomeLauncherScreen();
+        }
+    }
+
     private void getSliderBannersFromFirebase() {
         binding.bannersProgressBar.setVisibility(View.VISIBLE);
         viewModel.getSliderItems().observe(HomeLauncherActivity.this, sliderItems -> {
-            if (sliderItems != null){
+            if (sliderItems != null) {
                 setBannersTransform(sliderItems);
                 binding.bannersProgressBar.setVisibility(View.GONE);
             }
@@ -199,7 +245,7 @@ public class HomeLauncherActivity extends AppCompatActivity {
         binding.topMoviesProgressBar.setVisibility(View.VISIBLE);
         viewModel.getTopMovies().observe(HomeLauncherActivity.this, films -> {
             binding.topMoviesProgressBar.setVisibility(View.GONE);
-            if (films != null){
+            if (films != null) {
                 binding.topMoviesRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
                 binding.topMoviesRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, films));
             }
@@ -210,7 +256,7 @@ public class HomeLauncherActivity extends AppCompatActivity {
         binding.upComingProgressBar.setVisibility(View.VISIBLE);
         viewModel.getUpComing().observe(HomeLauncherActivity.this, films -> {
             binding.upComingProgressBar.setVisibility(View.GONE);
-            if (films != null){
+            if (films != null) {
                 binding.upComingRecyclerView.setLayoutManager(new LinearLayoutManager(HomeLauncherActivity.this, LinearLayoutManager.HORIZONTAL, false));
                 binding.upComingRecyclerView.setAdapter(new FilmListAdapter(HomeLauncherActivity.this, films));
             }

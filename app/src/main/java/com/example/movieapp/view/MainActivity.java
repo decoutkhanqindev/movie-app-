@@ -45,9 +45,15 @@ public class MainActivity extends AppCompatActivity {
         signInFragment = new SignInFragment();
         signUpFragment = new SignUpFragment();
 
-        binding.moveToSignInFragment.setOnClickListener(v -> showFragment(signInFragment));
+        binding.moveToSignInFragment.setOnClickListener(v -> {
+            hideSignInAndUpBtnLayout();
+            showFragment(signInFragment);
+        });
 
-        binding.moveToSignUpFragment.setOnClickListener(v -> showFragment(signUpFragment));
+        binding.moveToSignUpFragment.setOnClickListener(v -> {
+            hideSignInAndUpBtnLayout();
+            showFragment(signUpFragment);
+        });
 
         getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanged);
 
@@ -93,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFragment(Fragment fragment) {
-        hideSignInAndUpBtnLayout();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);

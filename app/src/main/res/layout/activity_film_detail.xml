@@ -100,7 +100,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/filmDetailGenre"
+                        android:id="@+id/filmDetailGenreView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -192,7 +192,7 @@
                             tools:ignore="HardcodedText" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/filmDetailCast"
+                            android:id="@+id/filmDetailCastView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
